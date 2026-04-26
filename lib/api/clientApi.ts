@@ -8,7 +8,7 @@ import {
     RegisterRequest,
     UpdateUserRequest,
     User,
-} from '@/types/requests';
+} from '@/types/user';
 
 export async function fetchNotes(page: number, search: string, tag?: string): Promise<ApiResponse> {
     const options = {

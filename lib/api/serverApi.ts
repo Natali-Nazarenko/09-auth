@@ -1,6 +1,6 @@
 import { cookies } from 'next/headers';
 
-import { ApiResponse, CheckSessionRequest, User } from '@/types/requests';
+import { ApiResponse, CheckSessionRequest, User } from '@/types/user';
 import { nextServer } from './api';
 import { Note } from '@/types/note';
 
