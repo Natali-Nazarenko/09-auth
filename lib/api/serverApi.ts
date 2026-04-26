@@ -5,16 +5,6 @@ import { nextServer } from './api';
 import { Note } from '@/types/note';
 import { ApiResponse, CheckSessionRequest } from '@/types/request';
 
-export const checkServerSession = async () => {
-    const cookieStore = await cookies();
-    const res = await nextServer.get('/auth/session', {
-        headers: {
-            Cookie: cookieStore.toString(),
-        },
-    });
-    return res;
-};
-
 export async function fetchNotes(page: number, search: string, tag?: string): Promise<ApiResponse> {
     const cookieStore = await cookies();
     const options = {
@@ -43,7 +33,7 @@ export async function fetchNoteById(noteId: Note['id']): Promise<Note> {
     return data;
 }
 
-export async function getMe() {
+export async function getMe(): Promise<User> {
     const cookieStore = await cookies();
     const { data } = await nextServer.get<User>('/users/me', {
         headers: {
