@@ -16,6 +16,7 @@ export const checkServerSession = async () => {
 };
 
 export async function fetchNotes(page: number, search: string, tag?: string): Promise<ApiResponse> {
+    const cookieStore = await cookies();
     const options = {
         params: {
             page,
@@ -33,6 +34,7 @@ export async function fetchNotes(page: number, search: string, tag?: string): Pr
 }
 
 export async function fetchNoteById(noteId: Note['id']): Promise<Note> {
+    const cookieStore = await cookies();
     const { data } = await nextServer.get<Note>(`/notes/${noteId}`, {
         headers: {
             Cookie: cookieStore.toString(),
@@ -41,20 +43,22 @@ export async function fetchNoteById(noteId: Note['id']): Promise<Note> {
     return data;
 }
 
-export async function getMe(cookieHeader: string) {
+export async function getMe() {
+    const cookieStore = await cookies();
     const { data } = await nextServer.get<User>('/users/me', {
         headers: {
-            Cookie: cookieHeader,
+            Cookie: cookieStore.toString(),
         },
     });
     return data;
 }
 
 export async function checkSession() {
-    const { data } = await nextServer.get<CheckSessionRequest>('/auth/session', {
+    const cookieStore = await cookies();
+    const res = await nextServer.get<CheckSessionRequest>('/auth/session', {
         headers: {
             Cookie: cookieStore.toString(),
         },
     });
-    return data;
+    return res;
 }

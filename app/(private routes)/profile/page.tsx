@@ -2,15 +2,14 @@ import { Metadata } from 'next';
 
 import ProfilePageClient from './ProfilePage.client';
 import { getMe } from '@/lib/api/serverApi';
-import { cookies } from 'next/headers';
 
-export const metaData: Metadata = {
+export const metadata: Metadata = {
     title: 'Profile - NoteHub',
     description: 'User profile page',
     openGraph: {
         title: 'Profile - NoteHub',
         description: 'User profile page',
-        url: 'https://https://vercel.com/natali-nazarenkos-projects/09-auth/profile',
+        url: 'https://vercel.com/natali-nazarenkos-projects/09-auth/profile',
         images: [
             {
                 url: 'https://ethnomir.ru/upload/medialibrary/77b/kolibri.jpg',
@@ -23,9 +22,7 @@ export const metaData: Metadata = {
 };
 
 async function Profile() {
-    const cookieStore = await cookies();
-    const cookieHeader = cookieStore.toString();
-    const user = await getMe(cookieHeader);
+    const user = await getMe();
     return <ProfilePageClient user={user} />;
 }
 export default Profile;
