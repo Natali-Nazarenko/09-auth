@@ -5,7 +5,7 @@ import { useDebouncedCallback } from 'use-debounce';
 import { useState } from 'react';
 
 import NoteList from '@/components/NoteList/NoteList';
-import css from '@/app/notes/filter/[...slug]/NotesClient.module.css';
+import css from './NotesClient.module.css';
 import { fetchNotes } from '@/lib/api';
 import Pagination from '@/components/Pagination/Pagination';
 import SearchBox from '@/components/SearchBox/SearchBox';
