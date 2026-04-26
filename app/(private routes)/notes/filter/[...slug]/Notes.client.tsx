@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 import NoteList from '@/components/NoteList/NoteList';
 import css from './NotesClient.module.css';
-import { fetchNotes } from '@/lib/api';
+import { fetchNotes } from '@/lib/api/clientApi';
 import Pagination from '@/components/Pagination/Pagination';
 import SearchBox from '@/components/SearchBox/SearchBox';
 import Link from 'next/link';
