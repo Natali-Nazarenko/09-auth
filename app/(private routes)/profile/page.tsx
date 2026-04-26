@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 
 import ProfilePageClient from './ProfilePage.client';
 import { getMe } from '@/lib/api/serverApi';
+import { cookies } from 'next/headers';
 
 export const metaData: Metadata = {
     title: 'Profile - NoteHub',
@@ -22,7 +23,9 @@ export const metaData: Metadata = {
 };
 
 async function Profile() {
-    const user = await getMe();
+    const cookieStore = await cookies();
+    const cookieHeader = cookieStore.toString();
+    const user = await getMe(cookieHeader);
     return <ProfilePageClient user={user} />;
 }
 export default Profile;

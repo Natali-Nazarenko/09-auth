@@ -41,10 +41,10 @@ export async function fetchNoteById(noteId: Note['id']): Promise<Note> {
     return data;
 }
 
-export async function getMe() {
+export async function getMe(cookieHeader: string) {
     const { data } = await nextServer.get<User>('/users/me', {
         headers: {
-            Cookie: cookieStore.toString(),
+            Cookie: cookieHeader,
         },
     });
     return data;
