@@ -1,14 +1,11 @@
 import { Note } from '@/types/note';
 import { nextServer } from './api';
-import {
-    ApiResponse,
-    CheckSessionRequest,
-    CreateNote,
-    LoginRequest,
-    RegisterRequest,
-    UpdateUserRequest,
-    User,
-} from '@/types/user';
+import { LoginRequest, RegisterRequest, User } from '@/types/user';
+import { ApiResponse, CheckSessionRequest, CreateNote } from '@/types/request';
+
+type UpdateUserRequest = {
+    username: string;
+};
 
 export async function fetchNotes(page: number, search: string, tag?: string): Promise<ApiResponse> {
     const options = {

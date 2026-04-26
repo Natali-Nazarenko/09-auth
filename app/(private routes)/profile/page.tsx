@@ -1,49 +1,28 @@
-'use client';
+import { Metadata } from 'next';
 
-import Link from 'next/link';
-import Image from 'next/image';
-import css from './ProfilePage.module.css';
-import { useAuthStore } from '@/lib/store/authStore';
-import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import ProfilePageClient from './ProfilePage.client';
+import { getMe } from '@/lib/api/serverApi';
 
-function Profile() {
-    const router = useRouter();
-    const { isAuthenticated, user } = useAuthStore();
+export const metaData: Metadata = {
+    title: 'Profile - NoteHub',
+    description: 'User profile page',
+    openGraph: {
+        title: 'Profile - NoteHub',
+        description: 'User profile page',
+        url: 'https://https://vercel.com/natali-nazarenkos-projects/09-auth/profile',
+        images: [
+            {
+                url: 'https://ethnomir.ru/upload/medialibrary/77b/kolibri.jpg',
+                width: 1200,
+                height: 630,
+                alt: 'User profile',
+            },
+        ],
+    },
+};
 
-    useEffect(() => {
-        if (!isAuthenticated) {
-            router.push('/sign-in');
-        }
-    }, [isAuthenticated, router]);
-
-    if (!isAuthenticated) return null;
-
-    return (
-        <main className={css.mainContent}>
-            <div className={css.profileCard}>
-                <div className={css.header}>
-                    <h1 className={css.formTitle}>Profile Page</h1>
-                    <Link href="profile/edit" className={css.editProfileButton}>
-                        Edit Profile
-                    </Link>
-                </div>
-                <div className={css.avatarWrapper}>
-                    <Image
-                        src={user?.avatar || '/default-avatar.png'}
-                        alt="User Avatar"
-                        width={120}
-                        height={120}
-                        className={css.avatar}
-                        priority
-                    />
-                </div>
-                <div className={css.profileInfo}>
-                    <p>Username: {user?.username}</p>
-                    <p>Email: {user?.email}</p>
-                </div>
-            </div>
-        </main>
-    );
+async function Profile() {
+    const user = await getMe();
+    return <ProfilePageClient user={user} />;
 }
 export default Profile;
